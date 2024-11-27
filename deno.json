@@ -2,7 +2,7 @@
   "name": "@prava/vyui-cli",
   "version": "0.1.1",
   "license": "MIT",
-  "exports": "./mod.ts",
+  "exports": "./ui-cli",
   "bin": {
     "vyui": "./main.ts"
   },
