@@ -7,10 +7,10 @@
     "vyui": "./main.ts"
   },
   "tasks": {
-    "dev": "deno run --A main.ts"
+    "dev": "deno run --Amain.ts"
   },
   "publish": {
-    "include": ["mod.ts", "main.ts", "README.md"]
+    "include": ["mod.ts", "main.ts", "create/**/*", "util.ts", "README.md"]
   },
   "imports": {
     "@prava/vyui-cli": "jsr:@prava/vyui-cli@^0.1.0",
