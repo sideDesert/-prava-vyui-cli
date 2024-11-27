@@ -4,7 +4,7 @@
   "license": "MIT",
   "exports": "./main.ts",
   "bin": {
-    "vyui": "./ui-cli"
+    "vyui": "./main.ts"
   },
   "tasks": {
     "dev": "deno run -A main.ts"
