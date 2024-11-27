@@ -1,13 +1,13 @@
 {
   "name": "@prava/vyui-cli",
-  "version": "0.1.1",
+  "version": "0.1.0",
   "license": "MIT",
   "exports": "./main.ts",
   "bin": {
     "vyui": "./ui-cli"
   },
   "tasks": {
-    "dev": "deno run --Amain.ts"
+    "dev": "deno run -A main.ts"
   },
   "publish": {
     "include": ["mod.ts", "main.ts", "create/**/*", "util.ts", "README.md"]
