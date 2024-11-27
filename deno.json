@@ -3,12 +3,14 @@
   "version": "0.1.1",
   "license": "MIT",
   "exports": "./mod.ts",
-  "bin": "./main.ts",
+  "bin": {
+    "vyui": "./main.ts"
+  },
   "tasks": {
-    "dev": "deno run --allow-read --allow-write main.ts"
+    "dev": "deno run --A main.ts"
   },
   "publish": {
-    "include": ["mod.ts", "main.ts", "create/**/*", "util.ts", "README.md"]
+    "include": ["mod.ts", "main.ts", "README.md"]
   },
   "imports": {
     "@prava/vyui-cli": "jsr:@prava/vyui-cli@^0.1.0",
