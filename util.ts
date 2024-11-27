@@ -1,6 +1,6 @@
 import { ensureDirSync, walk } from "@std/fs";
 
-export async function getCoreFolderPath(cwd: string) {
+export async function getCoreFolderPath(cwd: string): Promise<string> {
   let hasSrc = false;
   let srcPath = ".";
   for await (const d of walk(cwd, {
@@ -25,7 +25,10 @@ export async function getCoreFolderPath(cwd: string) {
   return cwd + "/core";
 }
 
-export async function getFeatureFilePath(name: string, cwd: string) {
+export async function getFeatureFilePath(
+  name: string,
+  cwd: string
+): Promise<string> {
   const coreFolderPath = await getCoreFolderPath(cwd);
   const path = coreFolderPath + "/" + name;
   ensureDirSync(coreFolderPath + "/" + name);

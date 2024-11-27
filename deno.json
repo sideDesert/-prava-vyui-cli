@@ -1,12 +1,13 @@
 {
   "name": "@your-namespace/cli-name",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "license": "MIT",
   "exports": "./mod.ts",
   "tasks": {
     "dev": "deno run --allow-read --allow-write main.ts"
   },
   "publish": {
-    "include": ["main.ts", "create/**/*", "util.ts", "README.md"]
+    "include": ["mod.ts", "main.ts", "create/**/*", "util.ts", "README.md"]
   },
   "imports": {
     "@std/cli": "jsr:@std/cli@^1.0.7",
