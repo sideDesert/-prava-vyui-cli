@@ -1,6 +1,6 @@
 import chalk from "chalk";
-import { ensureFileSync } from "@std/fs/ensure-file";
-import { toKebabCase, toCamelCase } from "@std/text";
+import { ensureFileSync } from "jsr:@std/fs/ensure-file";
+import { toKebabCase, toCamelCase } from "jsr:@std/text";
 
 const clientActionTemplate = (name: string) => `"use client";
 

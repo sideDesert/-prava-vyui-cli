@@ -20,7 +20,7 @@ export type FeatureConfig = {
 };
 
 // Export core CLI function
-export { cli } from "./main.ts";
+export { main } from "./main.ts";
 
 // Export utility functions
 export { getCoreFolderPath, getFeatureFilePath } from "./util.ts";

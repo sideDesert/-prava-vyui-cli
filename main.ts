@@ -1,6 +1,6 @@
 #!/usr/bin/env -S deno run --allow-read --allow-write
 
-import { parseArgs } from "@std/cli";
+import { parseArgs } from "jsr:@std/cli";
 import { createCoreFeature } from "./create/create-core-structure.ts";
 import { createCoreHook } from "./create/create-hook.ts";
 import { createCoreUtil } from "./create/create-util.ts";
@@ -8,10 +8,10 @@ import { createComponent } from "./create/create-component.ts";
 import { createClientAction } from "./create/create-action.ts";
 import { createServerAction } from "./create/create-action.ts";
 import { getCoreFolderPath } from "./util.ts";
-import chalk from "chalk";
+import chalk from "npm:chalk";
 
 const add = ["component", "util", "hook", "server-action", "client-action"];
-export async function cli(args: string[]) {
+export async function main(args: string[] = Deno.args) {
   const parsedArgs = parseArgs(args, {
     string: ["add", "name", "feature", "create"],
     default: { global: false },
@@ -70,5 +70,5 @@ export async function cli(args: string[]) {
 }
 
 if (import.meta.main) {
-  await cli(Deno.args);
+  await main();
 }
