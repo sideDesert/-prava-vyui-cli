@@ -2,9 +2,9 @@
   "name": "@prava/vyui-cli",
   "version": "0.1.1",
   "license": "MIT",
-  "exports": "./ui-cli",
+  "exports": "./main.ts",
   "bin": {
-    "vyui": "./main.ts"
+    "vyui": "./ui-cli"
   },
   "tasks": {
     "dev": "deno run --Amain.ts"
