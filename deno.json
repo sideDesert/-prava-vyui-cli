@@ -1,0 +1,17 @@
+{
+  "name": "@your-namespace/cli-name",
+  "version": "0.1.0",
+  "exports": "./mod.ts",
+  "tasks": {
+    "dev": "deno run --allow-read --allow-write main.ts"
+  },
+  "publish": {
+    "include": ["main.ts", "create/**/*", "util.ts", "README.md"]
+  },
+  "imports": {
+    "@std/cli": "jsr:@std/cli@^1.0.7",
+    "@std/fs": "jsr:@std/fs@^1.0.6",
+    "@std/text": "jsr:@std/text@^1.0.8",
+    "chalk": "npm:chalk@^5.3.0"
+  }
+}
