@@ -1,8 +1,9 @@
 {
   "name": "@prava/vyui-cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "MIT",
   "exports": "./mod.ts",
+  "bin": "./main.ts",
   "tasks": {
     "dev": "deno run --allow-read --allow-write main.ts"
   },
@@ -10,6 +11,7 @@
     "include": ["mod.ts", "main.ts", "create/**/*", "util.ts", "README.md"]
   },
   "imports": {
+    "@prava/vyui-cli": "jsr:@prava/vyui-cli@^0.1.0",
     "@std/cli": "jsr:@std/cli@^1.0.7",
     "@std/fs": "jsr:@std/fs@^1.0.6",
     "@std/text": "jsr:@std/text@^1.0.8",

@@ -1,6 +1,7 @@
 {
   "version": "4",
   "specifiers": {
+    "jsr:@prava/vyui-cli@0.1": "0.1.0",
     "jsr:@std/cli@^1.0.7": "1.0.7",
     "jsr:@std/fs@^1.0.6": "1.0.6",
     "jsr:@std/path@^1.0.8": "1.0.8",
@@ -8,6 +9,15 @@
     "npm:chalk@^5.3.0": "5.3.0"
   },
   "jsr": {
+    "@prava/vyui-cli@0.1.0": {
+      "integrity": "3c31f85d7c31e445b789cf1781cd92329fc106dedeb672c0c6422d158a06e344",
+      "dependencies": [
+        "jsr:@std/cli",
+        "jsr:@std/fs",
+        "jsr:@std/text",
+        "npm:chalk"
+      ]
+    },
     "@std/cli@1.0.7": {
       "integrity": "98359df9df586a69015ba570305183b0cb9e7d53c05ea2016ef9a3e77e82c7cd"
     },
@@ -56,6 +66,7 @@
   },
   "workspace": {
     "dependencies": [
+      "jsr:@prava/vyui-cli@0.1",
       "jsr:@std/cli@^1.0.7",
       "jsr:@std/fs@^1.0.6",
       "jsr:@std/text@^1.0.8",
