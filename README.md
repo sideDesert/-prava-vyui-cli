@@ -7,7 +7,7 @@ A CLI tool for scaffolding Prava.ai ui reposity components and features.
 To install the VyUI CLI globally using Deno, run the following command:
 
 ```
-deno install --allow-read --allow-write -f -n vyui https://deno.land/x/vyui/main.ts
+deno install --allow-read --allow-write --allow-env -f -n vyui jsr:@prava/vyui-cli@latest
 ```
 
 - `-A`: Grants all permissions to the script.
