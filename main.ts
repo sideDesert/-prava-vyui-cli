@@ -7,6 +7,10 @@ import { addServerAction, addClientAction } from "./add/add-action.ts";
 import { addUtil } from "./add/add-util.ts";
 import { addComponent } from "./add/add-component.ts";
 import { getCoreFolderPath } from "./util.ts";
+import { walk, walkSync } from "@std/fs/walk";
+import { extractExportableLiterals, tidy } from "./mod/tidy.ts";
+import { ensureFileSync } from "@std/fs/ensure-file";
+import chalk from "chalk";
 
 export const modules = [
   "hook",
@@ -38,6 +42,7 @@ vyui
   );
 
 modules.forEach((module) => {
+  // Add module
   vyui
     .command(
       `add:${module} <module_name:string> <feature_name>`,
@@ -53,17 +58,30 @@ modules.forEach((module) => {
       ) => {
         const isGlobal = !!global;
         const coreDirPath = isGlobal ? "." : getCoreFolderPath(Deno.cwd());
-        const featureFilePath = coreDirPath + "/" + feature_name;
-        moduleFunctionRegistry.get(module)(featureFilePath, module_name);
+        const featureDirPath = coreDirPath + "/" + feature_name;
+        moduleFunctionRegistry.get(module)(featureDirPath, module_name);
       }
     );
 });
+
+// Tidy modules
+vyui
+  .command(
+    `mod:tidy <feature_name> [module_name]`,
+    "Housekeeping for features folder, run after you manually add modules"
+  )
+  .arguments("<feature_name:string>")
+  .action((_options: unknown, feature_name: string) => {
+    tidy(feature_name);
+    console.log(chalk.blue("Tidy Directory:") + " core/" + feature_name);
+  });
+
 type ModuleArgs = {
   module_name: string;
   feature_name: string;
 };
 
-async function main() {
+export async function main() {
   await vyui.parse(Deno.args);
 }
 
