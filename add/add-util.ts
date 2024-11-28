@@ -24,7 +24,7 @@ export function ${name}({ ...props }: ${name}Args) {
 const indexTemplate = (name: string, fileName: string) =>
   `export { ${name} } from './${fileName}'`;
 
-export function createCoreUtil(featureFilePath: string, utilName: string) {
+export function addUtil(featureFilePath: string, utilName: string) {
   const fileName = toKebabCase(utilName);
   const parsedName = toCamelCase(utilName);
 

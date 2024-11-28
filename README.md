@@ -25,7 +25,7 @@ For npm-based projects, add the following script to your `package.json`:
 ```json
 {
   "scripts": {
-    "vyui": "deno run -A https://deno.land/x/vyui/main.ts"
+    "vyui": "deno run -A jsr:@prava/vyui@latest"
   }
 }
 ```
@@ -34,13 +34,17 @@ Then you can run the CLI using:
 
 ```bash
 # Using npm
-npm run vyui -- --create feature-name
+npm run vyui create:feature <feature-name>
+npm run vyui add:<module> <module_name> <feature-name>
+
 
 # Using yarn
-yarn vyui --create feature-name
+yarn vyui create:feature <feature-name>
+yarn vyui add:<module> <module_name> <feature-name>
 
 # Using pnpm
-pnpm vyui --create feature-name
+pnpm vyui create:feature <feature-name>
+pnpm vyui add:<module> <module_name> <feature-name>
 ```
 
 Note: The double dash (`--`) is required when using npm to pass arguments to the script.
@@ -50,7 +54,7 @@ Note: The double dash (`--`) is required when using npm to pass arguments to the
 If you've installed the CLI globally, you can use it directly:
 
 ```bash
-vyui --create feature-name
+vyui create:feature <feature-name>
 ```
 
 ### Creating a New Feature
@@ -59,15 +63,35 @@ Create a new feature structure with all necessary folders and files:
 
 ```bash
 # Using npm script
-npm run vyui -- --create auth
+npm run vyui create:feature auth
 
 # Using global installation
-vyui --create auth
+vyui create:feature auth
+```
+
+### Creating a New Module
+
+Create a new module:
+
+```bash
+# Using npm script
+npm run vyui add:hook useAuth auth
+npm run vyui add:util parseEmail auth
+npm run vyui add:server-action signIn auth
+npm run vyui add:client-action signOut auth
+npm run vyui add:component loginModal auth
+
+# Using global installation
+vyui add:hook useAuth auth
+vyui add:util parseEmail auth
+vyui add:server-action signIn auth
+vyui add:client-action signOut auth
+vyui add:component loginModal auth
 ```
 
 ## Folder Structure
 
-When you create a new feature using `vyui --create feature-name`, it generates the following structure:
+When you create a new feature using `vyui create:feature feature-name`, it generates the following structure:
 
 ```
 src/

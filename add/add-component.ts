@@ -21,10 +21,7 @@ export function ${name}({ className, children, ...props }: ${name}Props) {
 const indexTemplate = (name: string, fileName: string) =>
   `export { ${name} } from './${fileName}'`;
 
-export function createComponent(
-  featureFilePath: string,
-  componentName: string
-) {
+export function addComponent(featureFilePath: string, componentName: string) {
   const fileName = toKebabCase(componentName);
   const parsedName = toPascalCase(componentName);
 

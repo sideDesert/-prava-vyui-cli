@@ -1,25 +1,45 @@
 {
   "version": "4",
   "specifiers": {
-    "jsr:@prava/vyui-cli@0.1": "0.1.0",
-    "jsr:@std/cli@^1.0.7": "1.0.7",
+    "jsr:@cliffy/command@^1.0.0-rc.7": "1.0.0-rc.7",
+    "jsr:@cliffy/flags@1.0.0-rc.7": "1.0.0-rc.7",
+    "jsr:@cliffy/internal@1.0.0-rc.7": "1.0.0-rc.7",
+    "jsr:@cliffy/table@1.0.0-rc.7": "1.0.0-rc.7",
+    "jsr:@std/fmt@~1.0.2": "1.0.3",
     "jsr:@std/fs@^1.0.6": "1.0.6",
     "jsr:@std/path@^1.0.8": "1.0.8",
     "jsr:@std/text@^1.0.8": "1.0.8",
+    "jsr:@std/text@~1.0.7": "1.0.8",
     "npm:chalk@^5.3.0": "5.3.0"
   },
   "jsr": {
-    "@prava/vyui-cli@0.1.0": {
-      "integrity": "3c31f85d7c31e445b789cf1781cd92329fc106dedeb672c0c6422d158a06e344",
+    "@cliffy/command@1.0.0-rc.7": {
+      "integrity": "1288808d7a3cd18b86c24c2f920e47a6d954b7e23cadc35c8cbd78f8be41f0cd",
       "dependencies": [
-        "jsr:@std/cli",
-        "jsr:@std/fs",
-        "jsr:@std/text",
-        "npm:chalk"
+        "jsr:@cliffy/flags",
+        "jsr:@cliffy/internal",
+        "jsr:@cliffy/table",
+        "jsr:@std/fmt",
+        "jsr:@std/text@~1.0.7"
       ]
     },
-    "@std/cli@1.0.7": {
-      "integrity": "98359df9df586a69015ba570305183b0cb9e7d53c05ea2016ef9a3e77e82c7cd"
+    "@cliffy/flags@1.0.0-rc.7": {
+      "integrity": "318d9be98f6a6417b108e03dec427dea96cdd41a15beb21d2554ae6da450a781",
+      "dependencies": [
+        "jsr:@std/text@~1.0.7"
+      ]
+    },
+    "@cliffy/internal@1.0.0-rc.7": {
+      "integrity": "10412636ab3e67517d448be9eaab1b70c88eba9be22617b5d146257a11cc9b17"
+    },
+    "@cliffy/table@1.0.0-rc.7": {
+      "integrity": "9fdd9776eda28a0b397981c400eeb1aa36da2371b43eefe12e6ff555290e3180",
+      "dependencies": [
+        "jsr:@std/fmt"
+      ]
+    },
+    "@std/fmt@1.0.3": {
+      "integrity": "97765c16aa32245ff4e2204ecf7d8562496a3cb8592340a80e7e554e0bb9149f"
     },
     "@std/fs@1.0.6": {
       "integrity": "42b56e1e41b75583a21d5a37f6a6a27de9f510bcd36c0c85791d685ca0b85fa2",
@@ -66,8 +86,7 @@
   },
   "workspace": {
     "dependencies": [
-      "jsr:@prava/vyui-cli@0.1",
-      "jsr:@std/cli@^1.0.7",
+      "jsr:@cliffy/command@^1.0.0-rc.7",
       "jsr:@std/fs@^1.0.6",
       "jsr:@std/text@^1.0.8",
       "npm:chalk@^5.3.0"

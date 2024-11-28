@@ -1,9 +1,9 @@
-import { ensureDirSync, walk } from "@std/fs";
+import { ensureDirSync, walk, walkSync } from "@std/fs";
 
-export async function getCoreFolderPath(cwd: string): Promise<string> {
+export function getCoreFolderPath(cwd: string): string {
   let hasSrc = false;
   let srcPath = ".";
-  for await (const d of walk(cwd, {
+  for (const d of walkSync(cwd, {
     maxDepth: 5,
     skip: [/node_modules/],
   })) {
@@ -25,11 +25,8 @@ export async function getCoreFolderPath(cwd: string): Promise<string> {
   return cwd + "/core";
 }
 
-export async function getFeatureFilePath(
-  name: string,
-  cwd: string
-): Promise<string> {
-  const coreFolderPath = await getCoreFolderPath(cwd);
+export function getFeatureFilePath(name: string, cwd: string): string {
+  const coreFolderPath = getCoreFolderPath(cwd);
   const path = coreFolderPath + "/" + name;
   ensureDirSync(coreFolderPath + "/" + name);
   return path;

@@ -1,5 +1,3 @@
-#!/usr/bin/env -S deno run --allow-read --allow-write
-
 import { Command } from "@cliffy/command";
 import { createCoreFeature } from "./create/create-core-structure.ts";
 import { addHook } from "./add/add-hook.ts";
@@ -33,7 +31,7 @@ const vyui = new Command()
 vyui
   .command(`create:feature`, `Scaffold Feature Folder in the core/ directory`)
   .arguments(`<feature_name:string>`)
-  .action((_options: unknown, feature_name: string) =>
+  .action((_options: undefined, feature_name: string) =>
     createCoreFeature(feature_name)
   );
 
@@ -46,13 +44,15 @@ modules.forEach((module) => {
     .option("-g, --global", "Global Flag")
     .arguments("<module_name:string> <feature_name:string>")
     .action(
-      (
-        { global },
+      async (
+        { global }: { global: boolean | undefined },
         module_name: ModuleArgs["module_name"],
         feature_name: ModuleArgs["feature_name"]
       ) => {
         const isGlobal = !!global;
-        const coreDirPath = isGlobal ? "." : getCoreFolderPath(Deno.cwd());
+        const coreDirPath = isGlobal
+          ? "."
+          : await getCoreFolderPath(Deno.cwd());
         const featureFilePath = coreDirPath + "/" + feature_name;
         moduleFunctionRegistry.get(module)(featureFilePath, module_name);
       }
@@ -62,11 +62,4 @@ type ModuleArgs = {
   module_name: string;
   feature_name: string;
 };
-
-async function main() {
-  await vyui.parse(Deno.args);
-}
-
-if (import.meta.main) {
-  main();
-}
+await vyui.parse(Deno.args);

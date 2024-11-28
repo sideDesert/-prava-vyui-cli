@@ -47,10 +47,7 @@ export async function ${name}({ ...props }: ${name}Args) {
 const indexTemplate = (name: string, fileName: string) =>
   `export { ${name} } from './${fileName}'`;
 
-export function createClientAction(
-  featureFilePath: string,
-  actionName: string
-) {
+export function addClientAction(featureFilePath: string, actionName: string) {
   const fileName = toKebabCase(actionName);
   const parsedName = toCamelCase(actionName);
 
@@ -84,10 +81,7 @@ export function createClientAction(
   }
 }
 
-export function createServerAction(
-  featureFilePath: string,
-  actionName: string
-) {
+export function addServerAction(featureFilePath: string, actionName: string) {
   const fileName = toKebabCase(actionName);
   const parsedName = toCamelCase(actionName);
 

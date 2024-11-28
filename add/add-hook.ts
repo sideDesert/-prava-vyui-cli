@@ -18,7 +18,7 @@ export function ${name}({ ...props }: ${name}Args) {
 const indexTemplate = (name: string, fileName: string) =>
   `export { ${name} } from './${fileName}'`;
 
-export function createCoreHook(featureFilePath: string, hookName: string) {
+export function addHook(featureFilePath: string, hookName: string) {
   const fileName = toKebabCase(hookName);
   let parsedName = toCamelCase(hookName);
   parsedName = parsedName.startsWith("use")

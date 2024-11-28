@@ -31,13 +31,10 @@ export {
   createCoreStructure,
 } from "./create/create-core-structure.ts";
 
-export { createCoreHook } from "./create/create-hook.ts";
-export { createComponent } from "./create/create-component.ts";
-export { createCoreUtil } from "./create/create-util.ts";
-export {
-  createClientAction,
-  createServerAction,
-} from "./create/create-action.ts";
+export { addHook } from "./add/add-hook.ts";
+export { addComponent } from "./add/add-component.ts";
+export { addUtil } from "./add/add-util.ts";
+export { addClientAction, addServerAction } from "./add/add-action.ts";
 
 // Export template types
 export type ComponentTemplate = {

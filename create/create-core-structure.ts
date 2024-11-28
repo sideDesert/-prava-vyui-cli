@@ -1,11 +1,12 @@
 import chalk from "chalk";
 import { ensureDirSync } from "@std/fs";
+import { getCoreFolderPath } from "../util.ts";
 
 import { walk } from "@std/fs/walk";
 import { ensureFileSync } from "@std/fs/ensure-file";
 
 export function createCoreStructure(startPath: string = ".") {
-  console.log(`Creating new core feature`);
+  console.log(`Scaffolding new core feature directories...`);
   const dirs = [
     "components",
     "lib",
@@ -35,36 +36,9 @@ export function createCoreStructure(startPath: string = ".") {
 
 export async function createCoreFeature(
   featureName: string,
-  startPath: string = ".",
-  ignoreList = ["node_modules"]
+  startPath: string = "."
 ) {
-  let path = startPath;
-  let srcPath = ".";
-  let foundCoreDir = false;
-  let foundSrcDir = false;
-  // Find core directory in root
-  for await (const d of walk(startPath, {
-    skip: [/node_modules/],
-    maxDepth: 5,
-  })) {
-    if (d.isDirectory && ignoreList.includes(d.name)) {
-      continue;
-    }
-    if (d.isDirectory && d.name === "core") {
-      path = d.path;
-      foundCoreDir = true;
-      break;
-    }
-    if (d.isDirectory && d.name === "src") {
-      srcPath = d.path;
-      foundSrcDir = true;
-      break;
-    }
-  }
-  if (!foundCoreDir && foundSrcDir) {
-    path = srcPath + "/core";
-  }
-
+  const path = await getCoreFolderPath(startPath);
   console.log(chalk.blue("Creating Core Feature: ") + featureName);
   ensureDirSync(`${path}/${featureName}`);
   createCoreStructure(`${path}/${featureName}`);
