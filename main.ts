@@ -7,9 +7,7 @@ import { addServerAction, addClientAction } from "./add/add-action.ts";
 import { addUtil } from "./add/add-util.ts";
 import { addComponent } from "./add/add-component.ts";
 import { getCoreFolderPath } from "./util.ts";
-import { walk, walkSync } from "@std/fs/walk";
-import { extractExportableLiterals, tidy } from "./mod/tidy.ts";
-import { ensureFileSync } from "@std/fs/ensure-file";
+import { tidy } from "./mod/tidy.ts";
 import chalk from "chalk";
 
 export const modules = [
@@ -29,7 +27,7 @@ moduleFunctionRegistry.set("client-action", addClientAction);
 
 const vyui = new Command()
   .name("vyui")
-  .version("0.1.5")
+  .version("0.1.7")
   .description(
     "A tool for scaffolding files and folders for the front-end UI framework under PravaUI"
   );

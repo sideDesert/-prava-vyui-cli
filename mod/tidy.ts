@@ -6,33 +6,71 @@ import chalk from "chalk";
 
 const log = console.log;
 
-export function extractExportableLiterals(filePath: string): string[] {
+interface ExportedLiterals {
+  types: string[];
+  values: string[];
+}
+
+export function extractExportableLiterals(filePath: string): ExportedLiterals {
+  // Regex to match various export patterns
   const regex =
-    /export\s+(?:default\s+)?(?:async\s+)?(?:(?:const|let|var|function|async function|class|type|interface)?\s+)?(\w+)/gm;
+    /export\s+(?:default\s+)?(?:async\s+)?(?:(?:const|let|var|function|class|type|interface)?\s+)?(\w+|\{[^}]+\})/gm;
+
+  // Check if file exists
   if (!existsSync(filePath)) {
     log(chalk.red(`File at ${filePath} doesn't exist`));
+    return { types: [], values: [] };
   }
+
+  // Read file content
   const content = Deno.readTextFileSync(filePath);
   const matches = content.match(regex);
+
   if (!matches) {
-    return [];
+    return { types: [], values: [] };
   }
-  let literals: string[] = [];
-  const spl = /[\s\t\n,]+/;
-  for (const str of matches!) {
-    let parsedStr: string[] = [];
+
+  const types: string[] = [];
+  const values: string[] = [];
+
+  // Delimiter for splitting
+  const spl = /[\s\t\n,{}]+/;
+
+  for (const str of matches) {
+    // Handle grouped exports like export { a, b, c }
     if (str.includes("{")) {
-      parsedStr = str
+      const extractedLiterals = str
         .slice(str.indexOf("{") + 1, str.indexOf("}"))
         .trim()
-        .split(spl);
+        .split(spl)
+        .filter((lit) => lit.trim() !== "");
+
+      extractedLiterals.forEach((lit) => {
+        // Determine if it's a type or a value
+        if (lit.startsWith("type") || lit.includes("Interface")) {
+          types.push(lit.replace("type", "").trim());
+        } else {
+          values.push(lit);
+        }
+      });
     } else {
-      const splitStr = str.split(spl);
-      parsedStr.push(splitStr[splitStr.length - 1]);
+      // Handle individual exports
+      const splitStr = str.split(spl).filter((lit) => lit.trim() !== "");
+      const literal = splitStr[splitStr.length - 1];
+
+      // Categorize based on keywords
+      if (str.includes("type") || str.includes("interface")) {
+        types.push(literal);
+      } else {
+        values.push(literal);
+      }
     }
-    literals = literals.concat(parsedStr);
   }
-  return literals;
+
+  return {
+    types: [...new Set(types)], // Remove duplicates
+    values: [...new Set(values)], // Remove duplicates
+  };
 }
 
 export function tidy(feature_name: string) {
@@ -50,21 +88,43 @@ export function tidy(feature_name: string) {
     serverActionDir,
     clientActionDir,
   ];
-  let indexFileContent = "";
+
   for (const dir of dirs) {
-    let indexContent: string = "\n";
+    let indexFileContent = "";
     for (const d of walkSync(dir)) {
-      let literals: string[] = [];
       if (d.isFile && d.name !== "index.ts") {
-        literals = literals.concat(extractExportableLiterals(d.path));
-        const relPath = relative(dir, d.path);
-        indexContent = `export { ${literals.join(
-          ", "
-        )} } from './${relPath}'\n`;
+        // Get both types and values
+        const { types, values } = extractExportableLiterals(d.path);
+
+        // Create relative path, removing .tsx or .ts extension
+        let relPath = relative(dir, d.path);
+        relPath = relPath.replace(/\.(tsx?|ts)$/, "");
+
+        // Separate export for types and values
+        let indexContent = "";
+
+        // Export types
+        if (types.length > 0) {
+          indexContent += `export { ${types
+            .map((t) => `type ${t}`)
+            .join(", ")} } from './${relPath}';\n`;
+        }
+
+        // Export values
+        if (values.length > 0) {
+          indexContent += `export { ${values.join(
+            ", "
+          )} } from './${relPath}';\n`;
+        }
+
         indexFileContent += indexContent;
       }
     }
-    ensureFileSync(dir + "/index.ts");
-    Deno.writeTextFileSync(dir + "/index.ts", indexFileContent);
+
+    // Ensure index.ts exists and write content
+    if (indexFileContent.trim()) {
+      ensureFileSync(dir + "/index.ts");
+      Deno.writeTextFileSync(dir + "/index.ts", indexFileContent);
+    }
   }
 }
