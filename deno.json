@@ -10,7 +10,14 @@
     "dev": "deno run -A main.ts"
   },
   "publish": {
-    "include": ["mod.ts", "main.ts", "create/**/*", "util.ts", "README.md"]
+    "include": [
+      "mod.ts",
+      "main.ts",
+      "create/**/*",
+      "add/**/*",
+      "util.ts",
+      "README.md"
+    ]
   },
   "imports": {
     "@cliffy/command": "jsr:@cliffy/command@^1.0.0-rc.7",
